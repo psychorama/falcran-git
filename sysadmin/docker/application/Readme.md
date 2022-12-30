@@ -10,5 +10,5 @@ sudo docker image push home.psychorama.be:4560/falcran/falcran-git:latest
 sudo docker pull home.psychorama.be:4560/falcran/falcran-git:latest
 sudo docker container stop falcran-git
 sudo docker container rm falcran-git
-sudo docker run --name falcran-git -d -p 8281:8080 -p 8282:8081 home.psychorama.be:4560/falcran/falcran-git
+sudo docker run -v /volume1/docker/falcran-git:/var/www/app/private --name falcran-git -d -p 8281:8080 -p 8282:8081 home.psychorama.be:4560/falcran/falcran-git
 ```

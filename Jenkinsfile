@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'docker container stop falcran-git || true'
                 sh 'docker container rm falcran-git || true'
-                sh 'docker run --name falcran-git -d -p 8281:8080 -p 8282:8081 home.psychorama.be:4560/falcran/falcran-git'
+                sh 'docker run -v /volume1/docker/falcran-git:/var/www/app/private --name falcran-git -d -p 8281:8080 -p 8282:8081 home.psychorama.be:4560/falcran/falcran-git'
             }
         }
     }
