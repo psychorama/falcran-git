@@ -15,6 +15,10 @@
   </coverage>
   <php>
     <const name="FIXTURE_DIR" value="./tests/fixtures" />
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="dev"/>
+        <env name="APP_SECRET" value="ba06957ba14139049399bc5b57a302ec"/>
+        <!-- ###- symfony/framework-bundle ### -->
   </php>
   <testsuites>
     <testsuite name="default">

@@ -39,6 +39,11 @@ $card-cap-color: $dark;
 $code-bg: #f5f5f5;
 $code-border-radius: 6px;
 
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/utilities';
 @import 'bootstrap';
 @import '~ionicons/dist/scss/ionicons';
 @import 'buttons';
@@ -49,6 +54,7 @@ $code-border-radius: 6px;
 @import 'blame';
 @import 'diff';
 @import 'tree';
+
 
 // Layout
 .module-row {

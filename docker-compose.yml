@@ -1,23 +1,34 @@
+version: "3.4"
+
 services:
   node:
-    image: node:16-alpine
-    working_dir: /application
+    image: home.psychorama.be:4560/falcran/falcran-node:latest
+    container_name: falcran-git-node
+    command: sh -c "cd /app && yarn install && yarn watch"
+    environment:
+      NODE_ENV: ${DOCKER_NODE_ENV:-development}
     volumes:
-      - .:/application
-    command: npm install && npm run watch
+      - ./:/app
 
-  webserver:
+  application:
     build:
-      context: docker/nginx/
-    depends_on:
-      - php-fpm
-    working_dir: /application
+      context: .
+      dockerfile: ./sysadmin/docker/application/Dockerfile
+      args:
+        BUILD_ENVIRONMENT_NAME: dev
+        BUILD_ENVIRONMENT_DEBUG: 1
+    container_name: falcran-git-application
+    environment:
+      - DEVELOPMENT=${DEVELOPMENT:-1}
+      - APP_ENV=dev
+      - APP_DEBUG=1
+      - PHP_CS_FIXER_IGNORE_ENV=1
     volumes:
-      - .:/application
-
-  php-fpm:
-    build:
-      context: docker/php-fpm/
-    working_dir: /application
-    volumes:
-      - .:/application
+      - ./:/var/www/app
+      - ./sysadmin/docker/application/ini/docker-php.ini:/usr/local/etc/php/conf.d/docker-php.ini
+      - $HOME/.composer:/root/.composer
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "git.psychorama.test:host-gateway"
+    ports:
+      - "443:8083"

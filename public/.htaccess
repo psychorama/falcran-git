@@ -1,0 +1,12 @@
+AuthName "Git"
+AuthType "Digest"
+AuthUserFile "/var/www/app/public/.htpasswd"
+Require valid-user
+
+<Files config.ini>
+	Require all denied
+</Files>
+
+<Files .htpasswd>
+	Require all denied
+</Files>
