@@ -3,7 +3,7 @@ set -e
 set -x
 
 echo -n "Setup environment: "
-cat <<EOT >> ${WORKSPACE}/.env
+cat <<EOT >> "${WORKSPACE}"/.env
 
 ###> symfony/framework-bundle ###
 APP_SECRET="${SYMF_PSYCHORAMA_APP_SECRET}"
