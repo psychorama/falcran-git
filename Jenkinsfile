@@ -26,7 +26,16 @@ pipeline {
             steps {
                 sh 'docker container stop falcran-git || true'
                 sh 'docker container rm falcran-git || true'
-                sh 'docker run -v /volume1/docker/falcran-git:/var/www/app/private --name falcran-git -d -p 8281:8080 -p 8282:8081 home.psychorama.be:4560/falcran/falcran-git'
+                sh 'docker run \
+                  --name falcran-git \
+                  -l traefik.enable=true \
+                  -l traefik.http.routers.falcran-git.rule="Host(\\`git.psychorama.be\\`)" \
+                  -l traefik.http.routers.falcran-git.tls=true \
+                  -l traefik.http.routers.falcran-git.entrypoints=websecure \
+                  -l traefik.http.routers.falcran-git.middlewares=realip@file,transformip@file \
+                  -l traefik.http.services.falcran-git.loadbalancer.server.port=8080 \
+                  -v /volume1/docker/falcran-git:/var/www/app/private \
+                  -d home.psychorama.be:4560/falcran/falcran-git'
             }
         }
     }
