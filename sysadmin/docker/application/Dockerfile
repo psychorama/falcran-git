@@ -1,6 +1,6 @@
 ARG BUILD_ENVIRONMENT_NAME=prod
 ARG BUILD_ENVIRONMENT_DEBUG=0
-FROM home.psychorama.be:4560/falcran/falcran-composer:latest as composer
+FROM registry.psychorama.be/falcran/falcran-composer:latest as composer
 WORKDIR /app
 
 COPY composer.json composer.lock .env /app/
@@ -9,7 +9,7 @@ RUN composer install --no-scripts --no-autoloader && \
     composer dump-autoload --optimize && \
     composer dump-env ${BUILD_ENVIRONMENT_NAME:-prod}
 
-FROM home.psychorama.be:4560/falcran/falcran-node:latest as node
+FROM registry.psychorama.be/falcran/falcran-node:latest as node
 WORKDIR /app
 
 COPY . /app/
@@ -17,7 +17,7 @@ COPY . /app/
 RUN yarn install && \
     yarn build
 
-FROM home.psychorama.be:4560/falcran/falcran-apache-php-8.2:latest
+FROM registry.psychorama.be/falcran/falcran-apache-php-8.2:latest
 
 USER root
 

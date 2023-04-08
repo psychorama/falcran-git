@@ -17,9 +17,9 @@ pipeline {
         stage('Build images') {
             steps {
                 sh 'docker build -f sysadmin/docker/application/Dockerfile -t "falcran-git" . --no-cache'
-                sh 'docker image tag falcran-git:latest home.psychorama.be:4560/falcran/falcran-git:latest'
-                sh 'docker image push home.psychorama.be:4560/falcran/falcran-git:latest'
-                sh 'docker pull home.psychorama.be:4560/falcran/falcran-git:latest'
+                sh 'docker image tag falcran-git:latest registry.psychorama.be/falcran/falcran-git:latest'
+                sh 'docker image push registry.psychorama.be/falcran/falcran-git:latest'
+                sh 'docker pull registry.psychorama.be/falcran/falcran-git:latest'
             }
         }
         stage('Deploy') {
@@ -35,7 +35,7 @@ pipeline {
                   -l traefik.http.routers.falcran-git.middlewares=realip@file,transformip@file \
                   -l traefik.http.services.falcran-git.loadbalancer.server.port=8080 \
                   -v /volume1/docker/falcran-git:/var/www/app/private \
-                  -d home.psychorama.be:4560/falcran/falcran-git'
+                  -d registry.psychorama.be/falcran/falcran-git'
             }
         }
     }

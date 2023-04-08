@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   node:
-    image: home.psychorama.be:4560/falcran/falcran-node:latest
+    image: registry.psychorama.be/falcran/falcran-node:latest
     container_name: falcran-git-node
     command: sh -c "cd /app && yarn install && yarn watch"
     environment:
