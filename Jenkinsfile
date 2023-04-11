@@ -34,7 +34,7 @@ pipeline {
                   -l traefik.http.routers.falcran-git.entrypoints=websecure \
                   -l traefik.http.routers.falcran-git.middlewares=realip@file,transformip@file \
                   -l traefik.http.services.falcran-git.loadbalancer.server.port=8080 \
-                  -v /volume1/docker/falcran-git:/var/www/app/private \
+                  -v /volumeUSB1/usbshare/falcran-git:/var/www/app/private \
                   -d registry.psychorama.be/falcran/falcran-git'
             }
         }
