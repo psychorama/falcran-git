@@ -58,16 +58,16 @@ RUN rm -f /etc/apache2/certs/server.crt && \
     chmod 644 /etc/apache2/certs/server.*
 
 COPY ./sysadmin/docker/application/conf/app.conf /etc/apache2/sites-available/
-COPY --from=composer --chown=app:app /app/vendor /var/www/app/vendor
+COPY --from=composer --chown=app:users /app/vendor /var/www/app/vendor
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY --from=node --chown=app:app /app/public/assets /var/www/app/public/assets
-COPY --chown=app:app . /var/www/app/
+COPY --from=node --chown=app:users /app/public/assets /var/www/app/public/assets
+COPY --chown=app:users . /var/www/app/
 
 RUN mkdir -p /var/www/app/var/tmp && \
     mkdir -p /var/www/app/var/log && \
     mkdir -p /var/www/app/var/cache/prod && \
     mkdir -p /var/www/app/var/cache/dev && \
-    chown -R app:app /var/www/app && \
+    chown -R app:users /var/www/app && \
     chmod 777 /var/www/app/var/tmp
 
 RUN a2enmod rewrite && \
