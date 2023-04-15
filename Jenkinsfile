@@ -28,6 +28,7 @@ pipeline {
                 sh 'docker container rm falcran-git || true'
                 sh 'docker run \
                   --name falcran-git \
+                  --hostname git.psychorama.be \
                   -l traefik.enable=true \
                   -l traefik.http.routers.falcran-git.rule="Host(\\`git.psychorama.be\\`)" \
                   -l traefik.http.routers.falcran-git.tls=true \

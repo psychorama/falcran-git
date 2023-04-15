@@ -38,11 +38,16 @@ twig:
 
 monolog:
   handlers:
+    graylog:
+      type: gelf
+      publisher:
+        hostname: "%env(GRAYLOG_HOST)%"
+        port: "%env(GRAYLOG_PORT)%"
+      level: info
     file_log:
       type: stream
       path: "%kernel.logs_dir%/%kernel.environment%.log"
-      level: debug
-
+      level: error
     syslog_handler:
       type: syslog
       level: error

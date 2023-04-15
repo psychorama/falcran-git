@@ -4,6 +4,7 @@ services:
   node:
     image: registry.psychorama.be/falcran/falcran-node:latest
     container_name: falcran-git-node
+    user: root
     command: sh -c "cd /app && yarn install && yarn watch"
     environment:
       NODE_ENV: ${DOCKER_NODE_ENV:-development}
@@ -18,6 +19,8 @@ services:
         BUILD_ENVIRONMENT_NAME: dev
         BUILD_ENVIRONMENT_DEBUG: 1
     container_name: falcran-git-application
+    user: root
+    hostname: git.psychorama.test
     environment:
       - DEVELOPMENT=${DEVELOPMENT:-1}
       - APP_ENV=dev
@@ -27,8 +30,5 @@ services:
       - ./:/var/www/app
       - ./sysadmin/docker/application/ini/docker-php.ini:/usr/local/etc/php/conf.d/docker-php.ini
       - $HOME/.composer:/root/.composer
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-      - "git.psychorama.test:host-gateway"
     ports:
       - "443:8083"
