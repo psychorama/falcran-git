@@ -27,12 +27,12 @@ class Kernel extends BaseKernel
 
     public function getCacheDir(): string
     {
-        return $this->getProjectDir().'/var/cache/'.$this->environment;
+        return $this->getProjectDir().'var/cache/'.$this->environment;
     }
 
     public function getLogDir(): string
     {
-        return $this->getProjectDir().'/var/log';
+        return $this->getProjectDir().'var/log';
     }
 
     public function registerBundles(): iterable
@@ -56,18 +56,18 @@ class Kernel extends BaseKernel
     private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
     {
         $confDir = $this->getProjectDir().'/config';
-        $loader->load($confDir.'/config.yml');
-        $loader->load($confDir.'/framework.yml');
-        $loader->load($confDir.'/services.yml');
+        $loader->load($confDir.'/config.yaml');
+        $loader->load($confDir.'/framework.yaml');
+        $loader->load($confDir.'/services.yaml');
     }
 
     private function configureRoutes(RoutingConfigurator $routes): void
     {
         $confDir = $this->getProjectDir().'/config';
-        $routes->import($confDir.'/routes.yml');
+        $routes->import($confDir.'/routes.yaml');
 
         if ('dev' == $this->environment) {
-            $routes->import($confDir.'/dev/routes.yml');
+            $routes->import($confDir.'/dev/routes.yaml');
         }
     }
 }
