@@ -17,7 +17,7 @@ COPY . /app/
 RUN yarn install && \
     yarn build
 
-FROM registry.psychorama.be/falcran/falcran-apache-php-8.2:latest
+FROM registry.psychorama.be/falcran/falcran-apache-php-8.3:latest
 
 USER root
 
