@@ -29,6 +29,7 @@ pipeline {
                 sh 'docker run \
                   --name falcran-git \
                   --hostname git.psychorama.be \
+                  --network=falcran \
                   -l traefik.enable=true \
                   -l traefik.http.routers.falcran-git.rule="Host(\\`git.psychorama.be\\`)" \
                   -l traefik.http.routers.falcran-git.tls=true \
@@ -36,7 +37,7 @@ pipeline {
                   -l traefik.http.routers.falcran-git.middlewares=realip@file,transformip@file \
                   -l traefik.http.services.falcran-git.loadbalancer.server.port=8080 \
                   -v /volumeUSB1/usbshare/falcran-git:/var/www/app/private \
-                  -d registry.psychorama.be/falcran/falcran-git'
+                  -d registry.psychorama.be/falcran/falcran-git:latest'
             }
         }
     }
