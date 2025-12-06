@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
   node:
     image: registry.psychorama.be/falcran/falcran-node:latest
